@@ -662,6 +662,10 @@ The following rules on parameters MUST be applied:
 
 * If `closID` is set, and neither of `l3CacheSchema` and `memBwSchema` are set, runtime MUST check if corresponding pre-configured directory `closID` is present in mounted `resctrl`. If such pre-configured directory `closID` exists, runtime MUST assign container to this `closID` and [generate an error](runtime.md#errors) if directory does not exist.
 
+* If `closID` is not set and the runtime has created the sub-directory, the runtime MUST remove the sub-directory when the container is deleted.
+
+* If `closID` is set or the runtime has not created the sub-directory, the runtime MUST NOT remove the sub-directory when the container is deleted.
+
 * **`enableCMT`** *(boolean, OPTIONAL)* - specifies if Intel RDT CMT should be enabled:
     * CMT (Cache Monitoring Technology) supports monitoring of the last-level cache (LLC) occupancy
       for the container.
